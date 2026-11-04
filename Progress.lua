@@ -1,6 +1,6 @@
--- Progress: level ups, quests accepted and turned in, and the quest log as a snapshot of its quest IDs, each with the difficulty
--- the game gives it for the character (Core.lua: after login, reload, changes and level ups); once per session a quest line per
--- quest with its title and level, which no game file has
+-- Progress: level ups, quests accepted and turned in, and the quest log as a snapshot of its quest IDs (as the game's quest log
+-- shows them, without the entries it keeps hidden), each with the difficulty the game gives it for the character (Core.lua: after
+-- login, reload, changes and level ups); once per session a quest line per quest with its title and level, which no game file has
 local _, ns = ...
 
 local described = {}
@@ -23,7 +23,7 @@ local function questLog()
     local ids = {}
     for index = 1, C_QuestLog.GetNumQuestLogEntries() do
         local info = C_QuestLog.GetInfo(index)
-        if info and not info.isHeader and info.questID > 0 then
+        if info and not info.isHeader and not info.isHidden and info.questID > 0 then
             table.insert(ids, info.questID)
         end
     end

@@ -132,7 +132,7 @@ geändert hat. Solange das Spiel einen Zustand noch nicht kennt (die Gilde kurz 
 | `quest-accepted` | Quest-ID | Quest angenommen |
 | `quest-done` | Quest-ID, Erfahrung, Kupfer | Quest abgegeben |
 | `quest` | Quest-ID, Titel, Stufe (laut Questlog; leer, wenn die Quest dort nicht steht) | einmal je Sitzung und Quest, sobald sie im Questlog steht, angenommen oder abgegeben wird |
-| `quests` | IDs der Quests im Questlog, aufsteigend, mit Komma getrennt, jede mit `:` und ihrer Schwierigkeit für den Charakter, wie das Questlog sie färbt (`Enum.RelativeContentDifficulty`: 0 grau, 1 grün, 2 gelb, 3 orange, 4 rot); leer = keine | Zustand, auch nach jedem Levelaufstieg |
+| `quests` | IDs der Quests im Questlog (ab 0.6.3 ohne die Einträge, die das Spiel dort versteckt), aufsteigend, mit Komma getrennt, jede mit `:` und ihrer Schwierigkeit für den Charakter, wie das Questlog sie färbt (`Enum.RelativeContentDifficulty`: 0 grau, 1 grün, 2 gelb, 3 orange, 4 rot); leer = keine | Zustand, auch nach jedem Levelaufstieg |
 | `death` | – | gestorben |
 | `release` | – | Geist freigelassen |
 | `alive` | – | wieder lebendig |
