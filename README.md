@@ -2,9 +2,9 @@
 
 <h1 align="center">Trailbook</h1>
 
-<p align="center"><a href="https://trailbook-96g8h.ondigitalocean.app"><img src="media/website.svg" width="300" alt="Open the Trailbook website"></a></p>
+<p align="center"><a href="https://trailbook.gg"><img src="media/website.svg" width="300" alt="Open the Trailbook website"></a></p>
 
-<p align="center"><img src="https://trailbook-96g8h.ondigitalocean.app/media/trailbook-replay.gif" width="720" alt="A route replays on the Trailbook map while the timeline runs"></p>
+<p align="center"><img src="https://trailbook.gg/media/trailbook-replay.gif" width="720" alt="A route replays on the Trailbook map while the timeline runs"></p>
 
 <p align="center"><a href="#english">English</a> · <a href="#deutsch">Deutsch</a></p>
 
@@ -13,7 +13,7 @@
 ## English
 
 An addon for World of Warcraft: Forever that records where your character goes and what happens on the way: quests, loot,
-levels, deaths, gold, gear, group and guild. The [Trailbook website](https://trailbook-96g8h.ondigitalocean.app) shows it on a
+levels, deaths, gold, gear, group and guild. The [Trailbook website](https://trailbook.gg) shows it on a
 map with a timeline, on any computer and only to you, unless you share a character.
 
 Trailbook was inspired by [Muddy Boots](https://www.curseforge.com/wow/addons/muddy-boots) by Mookz, which lets you relive
@@ -50,7 +50,7 @@ travels inside the game, give Muddy Boots a try as well.
 ## Deutsch
 
 Ein Addon für World of Warcraft: Forever schreibt mit, wo dein Charakter unterwegs ist und was dabei passiert: Quests, Beute,
-Level, Tode, Gold, Ausrüstung, Gruppe und Gilde. Die [Trailbook-Website](https://trailbook-96g8h.ondigitalocean.app) zeigt
+Level, Tode, Gold, Ausrüstung, Gruppe und Gilde. Die [Trailbook-Website](https://trailbook.gg) zeigt
 es auf einer Karte mit Zeitleiste, auf jedem Rechner und nur für dich, ausser du teilst einen Charakter.
 
 Inspiriert hat Trailbook das Addon [Muddy Boots](https://www.curseforge.com/wow/addons/muddy-boots) von Mookz, mit dem du
