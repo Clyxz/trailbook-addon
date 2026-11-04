@@ -1,0 +1,26 @@
+## Interface: 16001
+## Title: Trailbook
+## Notes: Records your route and key moments to view on the Trailbook website.
+## Notes-deDE: Zeichnet deinen Weg und wichtige Momente für die Trailbook-Website auf.
+## Author: Martin
+## Version: 0.6.2
+## SavedVariables: TrailbookSettings
+## SavedVariablesPerCharacter: TrailbookDB
+## LoadSavedVariablesFirst: 1
+
+Core.lua
+Store.lua
+Session.lua
+Trail.lua
+Progress.lua
+Deaths.lua
+Travel.lua
+Screenshots.lua
+Loot.lua
+Gear.lua
+Money.lua
+Kills.lua
+Group.lua
+Guild.lua
+Daytime.lua
+Status.lua
