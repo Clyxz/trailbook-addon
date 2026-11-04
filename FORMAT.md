@@ -9,7 +9,10 @@ Eine kleine Zeile, die sich mit der Maus verschieben lässt: `Trailbook  23 min 
 solange das Addon Positionen aufzeichnet, gelb ab 60 Minuten ohne Speichern und grau ohne Position (Dungeon,
 Ladebildschirm). Beim Darüberfahren zeigt ein Tooltip, wann zuletzt gespeichert wurde (beim Login oder beim letzten
 `/reload`), wie viele Minuten, Zeilen und KB seitdem ungespeichert sind und wie groß die Daten insgesamt sind. `/trailbook`
-blendet die Zeile aus oder ein und schreibt denselben Stand in den Chat. Hat das Addon beim Einloggen keine gespeicherten Daten
+blendet die Zeile aus oder ein und schreibt denselben Stand in den Chat. Ein Rechtsklick öffnet ein Menü mit „Ausblenden“ und
+„Aufräumen …“: Nach einer Rückfrage mit Tagen und Größe löscht das Aufräumen alle abgeschlossenen Abschnitte dieses Charakters
+(auch die früherer Charaktere gleichen Namens), der laufende bleibt; `/trailbook clear` tut dasselbe. Ab 2 MB erinnert der
+Tooltip daran. Hat das Addon beim Einloggen keine gespeicherten Daten
 geladen, ist der Punkt rot und die Zeile sagt `keine Daten geladen` (siehe unten). Die Texte im Spiel sind auf Deutsch, in einem
 nicht deutschen Client auf Englisch.
 
@@ -187,4 +190,4 @@ Retail: Startplatz und Weg in Northshire liegen auf der Minimap richtig.
 | `Group.lua` | Gruppe |
 | `Guild.lua` | Gilde |
 | `Daytime.lua` | Tag und Nacht |
-| `Status.lua` | Statuszeile, Tooltip und `/trailbook` |
+| `Status.lua` | Statuszeile, Tooltip, Menü mit Aufräumen und `/trailbook` |

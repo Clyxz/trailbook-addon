@@ -3,7 +3,7 @@
 ## Notes: Records your route and key moments to view on the Trailbook website.
 ## Notes-deDE: Zeichnet deinen Weg und wichtige Momente für die Trailbook-Website auf.
 ## Author: Martin
-## Version: 0.6.3
+## Version: 0.6.4
 ## SavedVariables: TrailbookSettings
 ## SavedVariablesPerCharacter: TrailbookDB
 ## LoadSavedVariablesFirst: 1

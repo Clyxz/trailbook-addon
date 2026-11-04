@@ -1,10 +1,12 @@
 -- Status: a small movable line that shows whether Trailbook records and how much is not saved yet, or that no saved data was
--- loaded (ns.dataMissing, Session.lua); /trailbook shows or hides it. The frame has no global name, so its place lives only in
--- TrailbookSettings and not also in the client's layout cache per character.
+-- loaded (ns.dataMissing, Session.lua); /trailbook shows or hides it. A right-click opens its menu: hide it, or clear up, which
+-- deletes the finished recordings of this character after asking (also /trailbook clear), once they are on the website. The frame
+-- has no global name, so its place lives only in TrailbookSettings and not also in the client's layout cache per character.
 local addonName, ns = ...
 
 local REFRESH = 5
 local WARN_MINUTES = 60
+local BIG_FILE = 2 * 1024 * 1024
 local DEFAULT_POINT = { "TOP", "TOP", 0, -120 }
 local GOLD = "|cffffd100"
 local YELLOW = "|cffffcc00"
@@ -96,13 +98,55 @@ local function showTooltip(self)
     GameTooltip:AddDoubleLine(ns.Text("saved"), savedText(stats), 0.7, 0.7, 0.7, 1, 1, 1)
     GameTooltip:AddDoubleLine(ns.Text("since"), ns.Text("sinceValue", minutesUnsaved(stats), stats.lines, kilobytes(stats.bytes)), 0.7, 0.7, 0.7, 1, 1, 1)
     GameTooltip:AddDoubleLine(ns.Text("fileTotal"), ns.Text("aboutKB", kilobytes(stats.totalBytes)), 0.7, 0.7, 0.7, 1, 1, 1)
+    if stats.totalBytes >= BIG_FILE then
+        GameTooltip:AddLine(ns.Text("bigFile"), 1, 0.8, 0, true)
+    end
     GameTooltip:AddLine(ns.Text(ns.dataMissing and "hintsMissing" or "hints"), 0.5, 0.5, 0.5)
     GameTooltip:Show()
+end
+
+local function toggle()
+    settings.shown = not settings.shown
+    frame:SetShown(settings.shown)
+    ns.Print(ns.Text(settings.shown and "shown" or "hidden") .. " " .. summary())
+end
+
+-- Asks before deleting the finished recordings, naming their days and size, and deletes them on yes
+local function askClear()
+    local finished = ns.Store.Finished()
+    if not finished then
+        ns.Print(ns.Text("nothingToClear"))
+        return
+    end
+    local days = ns.Day(finished.first)
+    if ns.Day(finished.last) ~= days then
+        days = days .. " – " .. ns.Day(finished.last)
+    end
+    StaticPopup_ShowCustomGenericConfirmation({
+        text = ns.Text("clearQuestion", days, kilobytes(finished.bytes)),
+        acceptText = DELETE,
+        cancelText = CANCEL,
+        showAlert = true,
+        callback = function()
+            ns.Store.Clear(finished.own)
+            ns.Print(ns.Text("cleared", kilobytes(finished.bytes)))
+        end,
+    })
 end
 
 frame:SetScript("OnEnter", showTooltip)
 frame:SetScript("OnLeave", function()
     GameTooltip:Hide()
+end)
+frame:SetScript("OnMouseUp", function(self, button)
+    if button == "RightButton" then
+        GameTooltip:Hide()
+        MenuUtil.CreateContextMenu(self, function(_, root)
+            root:CreateTitle("Trailbook")
+            root:CreateButton(ns.Text("menuHide"), toggle)
+            root:CreateButton(ns.Text("menuClear"), askClear)
+        end)
+    end
 end)
 frame:SetScript("OnDragStart", frame.StartMoving)
 frame:SetScript("OnDragStop", function(self)
@@ -119,10 +163,15 @@ ns.On("PLAYER_ENTERING_WORLD", function(isLogin, isReload)
 end)
 
 SLASH_TRAILBOOK1 = "/trailbook"
-SlashCmdList.TRAILBOOK = function()
-    settings.shown = not settings.shown
-    frame:SetShown(settings.shown)
-    ns.Print(ns.Text(settings.shown and "shown" or "hidden") .. " " .. summary())
+SlashCmdList.TRAILBOOK = function(message)
+    local command = strtrim(message or ""):lower()
+    if command == "" then
+        toggle()
+    elseif command == "clear" then
+        askClear()
+    else
+        ns.Print(ns.Text("commands"))
+    end
 end
 
 place()

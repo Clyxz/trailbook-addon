@@ -11,7 +11,7 @@ local handlers = {}
 local lastSpell, lastSpellTime
 local parsers = {}
 
--- The texts the addon shows, German for a German client and English for all others
+-- The texts the addon shows, German for a German client and English for all others; dayFormat is the date format of ns.Day
 local TEXTS = {
     de = {
         noEvent = "Dieses Event gibt es in diesem Client nicht: %s",
@@ -27,10 +27,19 @@ local TEXTS = {
         sinceValue = "%d min, %d Zeilen, ca. %d KB",
         fileTotal = "Datei gesamt:",
         aboutKB = "ca. %d KB",
-        hints = "/reload speichert, Ziehen verschiebt, /trailbook blendet aus",
-        hintsMissing = "Ziehen verschiebt, /trailbook blendet aus",
+        hints = "/reload speichert, Ziehen verschiebt, Rechtsklick öffnet das Menü",
+        hintsMissing = "Ziehen verschiebt, Rechtsklick öffnet das Menü",
         shown = "Anzeige an.",
-        hidden = "Anzeige aus.",
+        hidden = "Anzeige aus, /trailbook zeigt sie wieder.",
+        menuHide = "Ausblenden",
+        menuClear = "Aufräumen …",
+        clearQuestion = "Ältere Aufzeichnungen dieses Charakters löschen (%s, ca. %d KB)?\n\nLade sie vorher unter „Aufzeichnungen "
+            .. "verwalten“ auf der Trailbook-Website hoch – danach gibt es sie nur noch dort.",
+        cleared = "Ältere Aufzeichnungen gelöscht (ca. %d KB). Die Datei wird beim nächsten /reload oder Ausloggen kleiner.",
+        nothingToClear = "Keine älteren Aufzeichnungen zum Aufräumen.",
+        bigFile = "Die Datei wird groß: hochladen, dann aufräumen (Rechtsklick).",
+        commands = "/trailbook blendet die Zeile aus oder ein, /trailbook clear räumt auf.",
+        dayFormat = "%d.%m.",
         noDataShort = "keine Daten geladen",
         noData = "Keine gespeicherten Daten geladen. Falls du schon aufgezeichnet hast: WoW beenden und Trailbook.lua.bak im "
             .. "SavedVariables-Ordner dieses Charakters sichern, bevor du wieder einloggst.",
@@ -49,10 +58,19 @@ local TEXTS = {
         sinceValue = "%d min, %d lines, about %d KB",
         fileTotal = "File in total:",
         aboutKB = "about %d KB",
-        hints = "/reload saves, drag to move, /trailbook hides",
-        hintsMissing = "Drag to move, /trailbook hides",
+        hints = "/reload saves, drag to move, right-click for the menu",
+        hintsMissing = "Drag to move, right-click for the menu",
         shown = "Shown.",
-        hidden = "Hidden.",
+        hidden = "Hidden, /trailbook shows it again.",
+        menuHide = "Hide",
+        menuClear = "Clear up …",
+        clearQuestion = "Delete the older recordings of this character (%s, about %d KB)?\n\nUpload them first under “Manage "
+            .. "recordings” on the Trailbook website – afterwards they only exist there.",
+        cleared = "Older recordings deleted (about %d KB). The file shrinks with the next /reload or logout.",
+        nothingToClear = "No older recordings to clear up.",
+        bigFile = "The file is getting large: upload it, then clear up (right-click).",
+        commands = "/trailbook shows or hides the line, /trailbook clear clears up.",
+        dayFormat = "%d %b",
         noDataShort = "no saved data loaded",
         noData = "No saved data loaded. If you have recorded before: quit WoW and back up Trailbook.lua.bak in this character's "
             .. "SavedVariables folder before you log in again.",
@@ -63,6 +81,11 @@ local texts = GetLocale() == "deDE" and TEXTS.de or TEXTS.en
 -- A text in the client's language, with its values filled in
 function ns.Text(key, ...)
     return string.format(texts[key], ...)
+end
+
+-- A day as the client's language writes it briefly: 04.11. in German, 04 Nov in all others
+function ns.Day(seconds)
+    return date(texts.dayFormat, seconds)
 end
 
 frame:SetScript("OnEvent", function(_, event, ...)

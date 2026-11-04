@@ -129,13 +129,55 @@ local function size(texts)
     return total
 end
 
--- What is on disk and what is not: savedAt (time of this login or reload), lines and bytes written since, totalBytes of all data
-function Store.Stats()
-    local total = size(db.chunks) + size(db.open)
+-- The bytes of the finished chunks, this character's and those of earlier characters of the same name
+local function finishedBytes()
+    local total = size(db.chunks)
     for _, entry in ipairs(db.previous or {}) do
         total = total + size(entry.chunks)
     end
-    return { savedAt = loadedAt, lines = unsavedLines, bytes = unsavedBytes, totalBytes = total }
+    return total
+end
+
+-- What is on disk and what is not: savedAt (time of this login or reload), lines and bytes written since, totalBytes of all data
+function Store.Stats()
+    return { savedAt = loadedAt, lines = unsavedLines, bytes = unsavedBytes, totalBytes = finishedBytes() + size(db.open) }
+end
+
+-- The start (Unix seconds) of the earliest and of the latest of these chunks, widening first and last
+local function span(chunks, first, last)
+    for _, chunk in ipairs(chunks or {}) do
+        local start = tonumber(chunk:match("^Trailbook|%d+|(%d+)"))
+        if start then
+            first, last = math.min(first or start, start), math.max(last or start, start)
+        end
+    end
+    return first, last
+end
+
+-- The finished chunks Clear deletes: this character's (own = how many of db.chunks) and those of earlier characters of the same
+-- name, with their bytes and the start of the first and of the last; nil when there are none
+function Store.Finished()
+    local count = #db.chunks
+    local first, last = span(db.chunks)
+    for _, entry in ipairs(db.previous or {}) do
+        count = count + #(entry.chunks or {})
+        first, last = span(entry.chunks, first, last)
+    end
+    if count == 0 then
+        return nil
+    end
+    return { own = #db.chunks, bytes = finishedBytes(), first = first, last = last }
+end
+
+-- Deletes the finished chunks Finished counted (own: how many of db.chunks), not those finished since, and keeps the open chunk;
+-- the file shrinks with the next save
+function Store.Clear(own)
+    local rest = {}
+    for i = own + 1, #db.chunks do
+        table.insert(rest, db.chunks[i])
+    end
+    db.chunks = rest
+    db.previous = nil
 end
 
 closeOpen()

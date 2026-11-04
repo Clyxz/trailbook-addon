@@ -24,6 +24,8 @@ only in the SavedVariables folder, which a reinstall, a new computer or a broken
    `World of Warcraft\_forever_\Interface\AddOns`.
 2. Play. A small line in the game shows how long it has been since the last save; `/trailbook` shows or hides it.
 3. Afterwards open "Manage recordings" on the Trailbook website and drag the WTF folder in. Only what is new is taken over.
+4. To keep the file small, clear up in the game once your recordings are on the website: right-click the line, "Clear up"
+   (or `/trailbook clear`).
 
 ### So that nothing gets lost
 
@@ -57,6 +59,8 @@ löschen.
 2. Spielen. Eine kleine Zeile im Spiel zeigt, wie lange nicht gespeichert wurde; `/trailbook` blendet sie aus oder ein.
 3. Danach auf der Trailbook-Website „Aufzeichnungen verwalten“ öffnen und den Ordner WTF hineinziehen. Übernommen wird nur,
    was neu ist.
+4. Damit die Datei klein bleibt, im Spiel aufräumen, sobald die Aufzeichnungen auf der Website sind: Rechtsklick auf die
+   Zeile, „Aufräumen …“ (oder `/trailbook clear`).
 
 ### Damit nichts verloren geht
 
