@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 160 160">
+  <title>Trailbook</title>
+  <rect width="160" height="160" rx="34" fill="#2a1f1a"/>
+  <path d="M24 88 L72 112 L72 128 L24 104 Z" fill="#f1e4c6"/>
+  <path d="M26 94.5 L72 117.5 M26 97.5 L72 120.5 M26 100.5 L72 123.5" stroke="#cdb68c" stroke-width="1.1"/>
+  <path d="M24 88 L72 112 L72 115.5 L24 91.5 Z" fill="#8a5430"/>
+  <path d="M24 101 L72 125 L72 128 L24 104 Z" fill="#653b20"/>
+  <path d="M72 112 L132 84 L132 100 L72 128 Z" fill="#653b20"/>
+  <path d="M72 117 L132 89" stroke="#c08a55" stroke-width="1.6" opacity="0.55"/>
+  <path d="M87 105 V 121 M102 98 V 114 M117 91 V 107" stroke="#c08a55" stroke-width="2.4" stroke-linecap="round" opacity="0.8"/>
+  <path d="M24 88 L84 60 L132 84 L72 112 Z" fill="#8a5430"/>
+  <path d="M33.7 87.6 L82.9 64.7 L122.3 84.4 L73.1 107.3 Z" fill="none" stroke="#c08a55" stroke-width="1.4" opacity="0.7"/>
+  <path d="M24 88 L33 83.8 L33 92.5 Z M132 84 L123 79.5 L123 88.2 Z M72 112 L63 107.5 L81 107.8 Z" fill="#d9a85b"/>
+  <path d="M50 106 L56 109 L56 141 L53 137.5 L50 141 Z" fill="#c23a2e"/>
+  <path d="M40 90 C 50 96, 58 86, 66 90 S 75 88, 79 85" fill="none" stroke="#e2b867" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="4.5 5"/>
+  <ellipse cx="81" cy="85" rx="10" ry="3.5" fill="#000" opacity="0.28"/>
+  <path d="M80 24 C 64 24, 54 35, 54 49 C 54 67, 80 84, 80 84 C 80 84, 106 67, 106 49 C 106 35, 96 24, 80 24 Z" fill="#d9453a"/>
+  <path d="M62 44 C 63 37, 69 31, 77 30" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity="0.35"/>
+  <circle cx="80" cy="49" r="9" fill="#2a1f1a"/>
+</svg>
