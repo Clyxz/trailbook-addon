@@ -14,8 +14,12 @@ An addon for World of Warcraft: Forever that records where your character goes a
 levels, deaths, gold, gear, group and guild. The [Trailbook website](https://trailbook-96g8h.ondigitalocean.app) shows it on a
 map with a timeline, on any computer and only to you, unless you share a character.
 
-Inspired by MuddyBoots, but a separate addon with its own focus: getting this history out of the game. WoW keeps addon data
-only in the SavedVariables folder, which a reinstall, a new computer or a broken save can wipe.
+Trailbook was inspired by [Muddy Boots](https://www.curseforge.com/wow/addons/muddy-boots) by Mookz, which lets you relive
+your journey right on the in-game world map. Trailbook covers the other side and takes your journey out of the game; as a side
+effect it stays safe even if a reinstall, a new computer or a broken save wipes the SavedVariables folder.
+
+Both addons run side by side without getting in each other's way, each keeps its own data. If you like to look back on your
+travels inside the game, give Muddy Boots a try as well.
 
 ### How it works
 
@@ -47,9 +51,13 @@ Ein Addon für World of Warcraft: Forever schreibt mit, wo dein Charakter unterw
 Level, Tode, Gold, Ausrüstung, Gruppe und Gilde. Die [Trailbook-Website](https://trailbook-96g8h.ondigitalocean.app) zeigt
 es auf einer Karte mit Zeitleiste, auf jedem Rechner und nur für dich, ausser du teilst einen Charakter.
 
-Inspiriert von MuddyBoots, aber ein eigenes Addon mit eigenem Fokus: diese Geschichte aus dem Spiel herauszuholen. WoW hält
-Addon-Daten nur im Ordner SavedVariables, und den kann eine Neuinstallation, ein neuer Rechner oder eine kaputte Speicherung
-löschen.
+Inspiriert hat Trailbook das Addon [Muddy Boots](https://www.curseforge.com/wow/addons/muddy-boots) von Mookz, mit dem du
+deine Reise direkt auf der Weltkarte im Spiel nacherlebst. Trailbook deckt die andere Seite ab und holt deine Reise aus dem
+Spiel heraus; nebenbei bleibt sie so erhalten, auch wenn eine Neuinstallation, ein neuer Rechner oder eine kaputte Speicherung
+den Ordner SavedVariables löscht.
+
+Beide Addons laufen nebeneinander, ohne sich in die Quere zu kommen, und speichern ihre Daten getrennt. Wenn du deine Reisen
+auch im Spiel selbst noch einmal ansehen möchtest, probier Muddy Boots ruhig zusätzlich aus.
 
 ### So geht's
 
