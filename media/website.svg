@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="48" viewBox="0 0 300 48">
+  <rect x="1" y="1" width="298" height="46" rx="8" fill="#2a1f1a" stroke="#d9a85b" stroke-width="2"/>
+  <path d="M32 12 C 26.5 12, 23 16, 23 21 C 23 27.5, 32 35, 32 35 C 32 35, 41 27.5, 41 21 C 41 16, 37.5 12, 32 12 Z" fill="#d9453a"/>
+  <circle cx="32" cy="21" r="3.5" fill="#2a1f1a"/>
+  <text x="166" y="30" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="17" fill="#ecdfc6">Open the Trailbook website</text>
+</svg>
