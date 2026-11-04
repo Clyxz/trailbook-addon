@@ -4,6 +4,8 @@
 
 <p align="center"><a href="https://trailbook-96g8h.ondigitalocean.app"><img src="media/website.svg" width="300" alt="Open the Trailbook website"></a></p>
 
+<p align="center"><img src="https://trailbook-96g8h.ondigitalocean.app/media/trailbook-replay.gif" width="720" alt="A route replays on the Trailbook map while the timeline runs"></p>
+
 <p align="center"><a href="#english">English</a> · <a href="#deutsch">Deutsch</a></p>
 
 <p align="center"><img src="media/divider.svg" width="100%" alt=""></p>
