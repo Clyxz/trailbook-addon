@@ -14,8 +14,8 @@ An addon for World of Warcraft: Forever that records where your character goes a
 levels, deaths, gold, gear, group and guild. The [Trailbook website](https://trailbook-96g8h.ondigitalocean.app) shows it on a
 map with a timeline, on any computer and only to you.
 
-Inspired by MuddyBoots, Trailbook focuses on getting this history out of the game: WoW keeps addon data only in the
-SavedVariables folder, which a reinstall, a new computer or a broken save can wipe.
+Inspired by MuddyBoots, but a separate addon with its own focus: getting this history out of the game. WoW keeps addon data
+only in the SavedVariables folder, which a reinstall, a new computer or a broken save can wipe.
 
 ### How it works
 
@@ -45,8 +45,9 @@ Ein Addon für World of Warcraft: Forever schreibt mit, wo dein Charakter unterw
 Level, Tode, Gold, Ausrüstung, Gruppe und Gilde. Die [Trailbook-Website](https://trailbook-96g8h.ondigitalocean.app) zeigt
 es auf einer Karte mit Zeitleiste, auf jedem Rechner und nur für dich.
 
-Inspiriert von MuddyBoots, kümmert sich Trailbook darum, diese Geschichte aus dem Spiel herauszuholen: WoW hält Addon-Daten
-nur im Ordner SavedVariables, und den kann eine Neuinstallation, ein neuer Rechner oder eine kaputte Speicherung löschen.
+Inspiriert von MuddyBoots, aber ein eigenes Addon mit eigenem Fokus: diese Geschichte aus dem Spiel herauszuholen. WoW hält
+Addon-Daten nur im Ordner SavedVariables, und den kann eine Neuinstallation, ein neuer Rechner oder eine kaputte Speicherung
+löschen.
 
 ### So geht's
 
