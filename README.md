@@ -12,7 +12,7 @@
 
 An addon for World of Warcraft: Forever that records where your character goes and what happens on the way: quests, loot,
 levels, deaths, gold, gear, group and guild. The [Trailbook website](https://trailbook-96g8h.ondigitalocean.app) shows it on a
-map with a timeline, on any computer and only to you.
+map with a timeline, on any computer and only to you, unless you share a character.
 
 Inspired by MuddyBoots, but a separate addon with its own focus: getting this history out of the game. WoW keeps addon data
 only in the SavedVariables folder, which a reinstall, a new computer or a broken save can wipe.
@@ -43,7 +43,7 @@ only in the SavedVariables folder, which a reinstall, a new computer or a broken
 
 Ein Addon für World of Warcraft: Forever schreibt mit, wo dein Charakter unterwegs ist und was dabei passiert: Quests, Beute,
 Level, Tode, Gold, Ausrüstung, Gruppe und Gilde. Die [Trailbook-Website](https://trailbook-96g8h.ondigitalocean.app) zeigt
-es auf einer Karte mit Zeitleiste, auf jedem Rechner und nur für dich.
+es auf einer Karte mit Zeitleiste, auf jedem Rechner und nur für dich, ausser du teilst einen Charakter.
 
 Inspiriert von MuddyBoots, aber ein eigenes Addon mit eigenem Fokus: diese Geschichte aus dem Spiel herauszuholen. WoW hält
 Addon-Daten nur im Ordner SavedVariables, und den kann eine Neuinstallation, ein neuer Rechner oder eine kaputte Speicherung
