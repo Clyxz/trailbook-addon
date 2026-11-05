@@ -25,19 +25,22 @@ travels inside the game, give Muddy Boots a try as well.
 
 ### How it works
 
-1. Install the addon from [CurseForge](https://www.curseforge.com/wow/addons/trailbook); the CurseForge app keeps it up to
-   date. Or copy the files of this repository into a folder named `Trailbook` in
-   `World of Warcraft\_forever_\Interface\AddOns`.
-2. Play. A small line in the game shows how long it has been since the last save; `/trailbook` shows or hides it.
-3. Afterwards open "Manage recordings" on the Trailbook website and drag the WTF folder in. Only what is new is taken over.
-4. To keep the file small, clear up in the game once your recordings are on the website: right-click the line, "Clear up"
-   (or `/trailbook clear`).
+First install the addon from [CurseForge](https://www.curseforge.com/wow/addons/trailbook); the CurseForge app keeps it up to
+date. Or copy the files of this repository into a folder named `Trailbook` in `World of Warcraft\_forever_\Interface\AddOns`.
+Then:
+
+1. **In the game:** play. The small Trailbook info box shows how long it has been since the last save; `/trailbook` shows or
+   hides it, `/trailbook help` shows these steps in the game.
+2. **On [trailbook.gg](https://trailbook.gg):** open "Manage recordings" and drag the WTF folder in, from every PC you play on.
+   Do it any time: only what is new is added, everything uploaded before stays.
+3. **Back in the game:** clear up so the file stays small: right-click the Trailbook info box, "Clear up …" (or
+   `/trailbook clear`).
 
 ### So that nothing gets lost
 
 - WoW saves only when you log out, on `/reload` and when you quit. After a crash everything since the last save is missing:
-  type `/reload` now and then, at the latest when the line turns yellow.
-- Until you import, your routes are only on your computer. Import after every session.
+  type `/reload` now and then, at the latest when the info box turns yellow.
+- Until you upload, your recordings are only on your computer. Upload after every session.
 - If the addon says "No saved data loaded": quit WoW and back up `Trailbook.lua.bak` before you log in again.
 
 ### More
@@ -63,20 +66,22 @@ auch im Spiel selbst noch einmal ansehen möchtest, probier Muddy Boots ruhig zu
 
 ### So geht's
 
-1. Addon über [CurseForge](https://www.curseforge.com/wow/addons/trailbook) installieren, mit der CurseForge-App kommen Updates
-   von selbst. Oder die Dateien dieses Repositorys in einen Ordner `Trailbook` unter
-   `World of Warcraft\_forever_\Interface\AddOns` kopieren.
-2. Spielen. Eine kleine Zeile im Spiel zeigt, wie lange nicht gespeichert wurde; `/trailbook` blendet sie aus oder ein.
-3. Danach auf der Trailbook-Website „Aufzeichnungen verwalten“ öffnen und den Ordner WTF hineinziehen. Übernommen wird nur,
-   was neu ist.
-4. Damit die Datei klein bleibt, im Spiel aufräumen, sobald die Aufzeichnungen auf der Website sind: Rechtsklick auf die
-   Zeile, „Aufräumen …“ (oder `/trailbook clear`).
+Zuerst das Addon über [CurseForge](https://www.curseforge.com/wow/addons/trailbook) installieren, mit der CurseForge-App kommen
+Updates von selbst. Oder die Dateien dieses Repositorys in einen Ordner `Trailbook` unter
+`World of Warcraft\_forever_\Interface\AddOns` kopieren. Dann:
+
+1. **Im Spiel:** spielen. Die kleine Trailbook-Infobox zeigt, wie lange nicht gespeichert wurde; `/trailbook` blendet sie aus
+   oder ein, `/trailbook help` zeigt diese Schritte im Spiel.
+2. **Auf [trailbook.gg](https://trailbook.gg):** „Aufzeichnungen verwalten“ öffnen und den Ordner WTF hineinziehen, von jedem PC,
+   auf dem du spielst. Das geht jederzeit: Nur Neues kommt dazu, alles bisher Hochgeladene bleibt.
+3. **Wieder im Spiel:** aufräumen, damit die Datei klein bleibt: Rechtsklick auf die Trailbook-Infobox, „Aufräumen …“ (oder
+   `/trailbook clear`).
 
 ### Damit nichts verloren geht
 
 - WoW speichert nur beim Ausloggen, bei `/reload` und beim Beenden. Nach einem Absturz fehlt alles seit dem letzten Speichern:
-  zwischendurch `/reload`, spätestens wenn die Zeile gelb wird.
-- Bis zum Import liegen deine Wege nur auf deinem Rechner. Importiere nach jedem Spielen.
+  zwischendurch `/reload`, spätestens wenn die Infobox gelb wird.
+- Bis zum Hochladen liegen deine Aufzeichnungen nur auf deinem Rechner. Lade nach jedem Spielen hoch.
 - Meldet das Addon „Keine gespeicherten Daten geladen“: WoW beenden und `Trailbook.lua.bak` sichern, bevor du wieder einloggst.
 
 ### Mehr

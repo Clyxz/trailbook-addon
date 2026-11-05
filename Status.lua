@@ -1,7 +1,8 @@
--- Status: a small movable line that shows whether Trailbook records and how much is not saved yet, or that no saved data was
+-- Status: a small movable info box that shows whether Trailbook records and how much is not saved yet, or that no saved data was
 -- loaded (ns.dataMissing, Session.lua); /trailbook shows or hides it. A right-click opens its menu: hide it, or clear up, which
--- deletes the finished recordings of this character after asking (also /trailbook clear), once they are on the website. The frame
--- has no global name, so its place lives only in TrailbookSettings and not also in the client's layout cache per character.
+-- deletes the finished recordings of this character after asking (also /trailbook clear), once they are on the website.
+-- /trailbook help prints the steps from playing to the website and back, each with the place where it happens. The frame has no
+-- global name, so its place lives only in TrailbookSettings and not also in the client's layout cache per character.
 local addonName, ns = ...
 
 local REFRESH = 5
@@ -11,6 +12,12 @@ local DEFAULT_POINT = { "TOP", "TOP", 0, -120 }
 local GOLD = "|cffffd100"
 local YELLOW = "|cffffcc00"
 local RED = "|cffff4040"
+local BLUE = "|cff69ccf0"
+local HELP_STEPS = {
+    { place = "placeGame", text = "helpSave", colour = GOLD },
+    { place = "placeWebsite", text = "helpUpload", colour = BLUE },
+    { place = "placeBack", text = "helpClear", colour = GOLD },
+}
 
 TrailbookSettings = TrailbookSettings or {}
 local settings = TrailbookSettings
@@ -162,6 +169,15 @@ ns.On("PLAYER_ENTERING_WORLD", function(isLogin, isReload)
     refresh()
 end)
 
+-- The steps from playing to the website and back, numbered, each led by its place in that place's colour, then the commands
+local function help()
+    ns.Print(ns.Text("help"))
+    for i, step in ipairs(HELP_STEPS) do
+        ns.Print(("%d. %s%s|r %s"):format(i, step.colour, ns.Text(step.place), ns.Text(step.text)))
+    end
+    ns.Print(ns.Text("commands"))
+end
+
 SLASH_TRAILBOOK1 = "/trailbook"
 SlashCmdList.TRAILBOOK = function(message)
     local command = strtrim(message or ""):lower()
@@ -169,6 +185,8 @@ SlashCmdList.TRAILBOOK = function(message)
         toggle()
     elseif command == "clear" then
         askClear()
+    elseif command == "help" then
+        help()
     else
         ns.Print(ns.Text("commands"))
     end

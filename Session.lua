@@ -1,5 +1,5 @@
 -- Session: login, reload and logout, who the character is, and a warning when the saved data did not load (in the chat, and in
--- the status line through ns.dataMissing until the next reload). Forever names are
+-- the info box through ns.dataMissing until the next reload). Forever names are
 -- unique per region and have two parts, the first name and the surname (UnitName's two returns); there are no realms to name.
 local _, ns = ...
 

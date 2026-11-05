@@ -1,19 +1,20 @@
 # Trailbook: technische Beschreibung
 
 Ein Addon für World of Warcraft: Forever. Es zeichnet den Weg eines Charakters und wichtige Momente auf, damit man sie später
-ohne das Spiel ansehen kann. Im Spiel zeigt es nur eine kleine Statuszeile.
+ohne das Spiel ansehen kann. Im Spiel zeigt es nur eine kleine Infobox.
 
 ## Anzeige im Spiel
 
-Eine kleine Zeile, die sich mit der Maus verschieben lässt: `Trailbook  23 min ungespeichert`. Der Punkt davor ist grün,
+Eine kleine Infobox, die sich mit der Maus verschieben lässt: `Trailbook  23 min ungespeichert`. Der Punkt davor ist grün,
 solange das Addon Positionen aufzeichnet, gelb ab 60 Minuten ohne Speichern und grau ohne Position (Dungeon,
 Ladebildschirm). Beim Darüberfahren zeigt ein Tooltip, wann zuletzt gespeichert wurde (beim Login oder beim letzten
 `/reload`), wie viele Minuten, Zeilen und KB seitdem ungespeichert sind und wie groß die Daten insgesamt sind. `/trailbook`
-blendet die Zeile aus oder ein und schreibt denselben Stand in den Chat. Ein Rechtsklick öffnet ein Menü mit „Ausblenden“ und
+blendet die Infobox aus oder ein und schreibt denselben Stand in den Chat. Ein Rechtsklick öffnet ein Menü mit „Ausblenden“ und
 „Aufräumen …“: Nach einer Rückfrage mit Tagen und Größe löscht das Aufräumen alle abgeschlossenen Abschnitte dieses Charakters
 (auch die früherer Charaktere gleichen Namens), der laufende bleibt; `/trailbook clear` tut dasselbe. Ab 2 MB erinnert der
-Tooltip daran. Hat das Addon beim Einloggen keine gespeicherten Daten
-geladen, ist der Punkt rot und die Zeile sagt `keine Daten geladen` (siehe unten). Die Texte im Spiel sind auf Deutsch, in einem
+Tooltip daran. `/trailbook help` schreibt die Schritte vom Spielen über das Hochladen bis zum Aufräumen in den Chat, jeden mit
+dem Ort, an dem er passiert (im Spiel oder auf der Website). Hat das Addon beim Einloggen keine gespeicherten Daten
+geladen, ist der Punkt rot und die Infobox sagt `keine Daten geladen` (siehe unten). Die Texte im Spiel sind auf Deutsch, in einem
 nicht deutschen Client auf Englisch.
 
 Position und Sichtbarkeit liegen kontoweit in `WTF\Account\<Konto>\SavedVariables\Trailbook.lua` (`TrailbookSettings`). Diese
@@ -30,7 +31,7 @@ WTF\Account\<Konto>\<Realm>\<Charakter>\SavedVariables\Trailbook.lua
 WoW schreibt sie nur beim Logout, bei `/reload` und beim Beenden. Nach einem Absturz fehlt alles seit dem letzten Speichern.
 Daneben liegt `Trailbook.lua.bak`, der Stand vor dem letzten Speichern; WoW ersetzt ihn bei jedem Speichern.
 
-Meldet das Addon beim Einloggen „Keine gespeicherten Daten geladen“ (im Chat und rot in der Statuszeile, bis zum nächsten
+Meldet das Addon beim Einloggen „Keine gespeicherten Daten geladen“ (im Chat und rot in der Infobox, bis zum nächsten
 Reload), obwohl schon aufgezeichnet wurde: WoW beenden und
 `Trailbook.lua.bak` sichern, bevor man wieder einloggt. Sonst überschreibt das nächste Speichern den alten Stand.
 
