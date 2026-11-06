@@ -1,5 +1,5 @@
--- Core: game events, timers, values the game may hide, the player's position, the last spell, game messages, snapshots,
--- the texts in the client's language and chat output
+-- Core: game events, timers, values the game may hide, the player's position, players' names and the group's units, the last
+-- spell, game messages, snapshots, the texts in the client's language and chat output
 local _, ns = ...
 
 local SPELL_WINDOW = 15
@@ -174,6 +174,39 @@ function ns.Snapshot(kind, read, changeEvents, written)
     end
 end
 
+-- A name as the game gave it, nil when it gave none: a secret value, an empty text or the placeholder for an unknown name
+function ns.Name(value)
+    value = ns.Read(value)
+    if type(value) == "string" and value ~= "" and value ~= UNKNOWNOBJECT then
+        return value
+    end
+    return nil
+end
+
+-- A player's name as Forever shows it, "First Surname" (UnitName's two returns), only the first name where there is no surname;
+-- nil while the game does not know it
+function ns.FullName(unit)
+    local name, surname = UnitName(unit)
+    name, surname = ns.Name(name), ns.Name(surname)
+    if name and surname then
+        return name .. " " .. surname
+    end
+    return name
+end
+
+-- The unit tokens of the other members of the character's party or raid, empty outside a group
+function ns.GroupUnits()
+    local list = {}
+    local prefix = IsInRaid() and "raid" or "party"
+    for i = 1, GetNumGroupMembers() do
+        local unit = prefix .. i
+        if ns.Read(UnitGUID(unit)) and not ns.Read(UnitIsUnit(unit, "player")) then
+            table.insert(list, unit)
+        end
+    end
+    return list
+end
+
 function ns.Here()
     local posY, posX = UnitPosition("player")
     posX, posY = ns.Read(posX), ns.Read(posY)
@@ -183,7 +216,12 @@ function ns.Here()
     return math.floor(posX + 0.5), math.floor(posY + 0.5)
 end
 
+-- The spell that may just have moved the character (Hearthstone, a teleport): its last one of the last SPELL_WINDOW seconds
+-- since its last death; nil while it is dead or a ghost, as a release or a resurrection moves it then, not a spell
 function ns.RecentSpell()
+    if ns.Read(UnitIsDeadOrGhost("player")) then
+        return nil
+    end
     if lastSpellTime and GetTime() - lastSpellTime <= SPELL_WINDOW then
         return lastSpell
     end
@@ -227,4 +265,8 @@ ns.On("UNIT_SPELLCAST_SUCCEEDED", function(unit, _, spellID)
     if ns.Read(unit) == "player" then
         lastSpell, lastSpellTime = spellID, GetTime()
     end
+end)
+
+ns.On("PLAYER_DEAD", function()
+    lastSpell, lastSpellTime = nil, nil
 end)

@@ -12,8 +12,8 @@
 
 ## English
 
-An addon for World of Warcraft: Forever that records where your character goes and what happens on the way: quests, loot,
-levels, deaths, gold, gear, group and guild. The [Trailbook website](https://trailbook.gg) shows it on a
+An addon for World of Warcraft: Forever that records where your character goes and what happens on the way: quests,
+experience, loot, levels, deaths and what caused them, boss fights, professions, spells cast, gold, gear, group and guild. The [Trailbook website](https://trailbook.gg) shows it on a
 map with a timeline, on any computer and only to you, unless you share a character.
 
 Trailbook was inspired by [Muddy Boots](https://www.curseforge.com/wow/addons/muddy-boots) by Mookz, which lets you relive
@@ -43,6 +43,27 @@ Then:
 - Until you upload, your recordings are only on your computer. Upload after every session.
 - If the addon says "No saved data loaded": quit WoW and back up `Trailbook.lua.bak` before you log in again.
 
+### What gets recorded
+
+Everything stays in one file per character on your computer
+(`WTF\Account\<account>\<realm>\<character>\SavedVariables\Trailbook.lua`) until you upload it to trailbook.gg yourself. The
+addon sends nothing anywhere.
+
+- **Your route:** your position every few seconds outdoors (not inside dungeons), and whether you were mounted, swimming, in
+  combat, dead or a ghost; zones, subzones, flights, your Hearthstone and other teleports.
+- **Progress:** levels, experience and rested pool, quests you accepted and turned in, your quest log, areas you discovered.
+- **Fights and deaths:** creatures that gave you experience, boss fights (pull, kill or wipe), each death with what caused it
+  (the creature, player or fall that killed you), and how you came back to life.
+- **Your character:** gear, gold, items you received, your guild and rank, your professions and their skill, spells and recipes
+  you learned, and every spell or ability you cast (not the auto attack).
+- **Other players:** your group members and a player who killed or resurrected you, by name, with their class where the game
+  shows it. The shared view of a character leaves them out.
+- **Sessions:** login, reload and logout, client version and language, day or night, and when you took a screenshot (only the
+  time, not the picture).
+
+Not recorded: chat and whispers, what is in your bags and bank, who you mail or trade with, and nothing about other players
+beyond the above.
+
 ### More
 
 - [FORMAT.md](FORMAT.md) (in German) describes what the addon records and how its data is built, readable without the addon.
@@ -52,8 +73,8 @@ Then:
 
 ## Deutsch
 
-Ein Addon für World of Warcraft: Forever schreibt mit, wo dein Charakter unterwegs ist und was dabei passiert: Quests, Beute,
-Level, Tode, Gold, Ausrüstung, Gruppe und Gilde. Die [Trailbook-Website](https://trailbook.gg) zeigt
+Ein Addon für World of Warcraft: Forever schreibt mit, wo dein Charakter unterwegs ist und was dabei passiert: Quests,
+Erfahrung, Beute, Level, Tode und ihre Ursachen, Bosskämpfe, Berufe, gewirkte Zauber, Gold, Ausrüstung, Gruppe und Gilde. Die [Trailbook-Website](https://trailbook.gg) zeigt
 es auf einer Karte mit Zeitleiste, auf jedem Rechner und nur für dich, ausser du teilst einen Charakter.
 
 Inspiriert hat Trailbook das Addon [Muddy Boots](https://www.curseforge.com/wow/addons/muddy-boots) von Mookz, mit dem du
@@ -83,6 +104,27 @@ Updates von selbst. Oder die Dateien dieses Repositorys in einen Ordner `Trailbo
   zwischendurch `/reload`, spätestens wenn die Infobox gelb wird.
 - Bis zum Hochladen liegen deine Aufzeichnungen nur auf deinem Rechner. Lade nach jedem Spielen hoch.
 - Meldet das Addon „Keine gespeicherten Daten geladen“: WoW beenden und `Trailbook.lua.bak` sichern, bevor du wieder einloggst.
+
+### Was aufgezeichnet wird
+
+Alles bleibt in einer Datei pro Charakter auf deinem Rechner
+(`WTF\Account\<Konto>\<Realm>\<Charakter>\SavedVariables\Trailbook.lua`), bis du sie selbst auf trailbook.gg hochlädst. Das Addon
+schickt nichts irgendwohin.
+
+- **Dein Weg:** alle paar Sekunden deine Position im Freien (nicht in Dungeons), dazu ob du auf dem Reittier, schwimmend, im
+  Kampf, tot oder als Geist unterwegs warst; Zonen, Unterzonen, Flüge, dein Ruhestein und andere Teleports.
+- **Fortschritt:** Level, Erfahrung und Erholt-Vorrat, angenommene und abgegebene Quests, dein Questlog, entdeckte Gebiete.
+- **Kämpfe und Tode:** Gegner, die dir Erfahrung gaben, Bosskämpfe (Pull, Sieg oder Wipe), jeder Tod mit seiner Ursache (der
+  Gegner, Spieler oder Sturz, der dich getötet hat) und wie du wieder ins Leben kamst.
+- **Dein Charakter:** Ausrüstung, Gold, erhaltene Gegenstände, deine Gilde und dein Rang, deine Berufe mit ihrer Fertigkeit,
+  gelernte Zauber und Rezepte und jeder Zauber und jede Fähigkeit, die du wirkst (ohne den automatischen Angriff).
+- **Andere Spieler:** deine Gruppenmitglieder und ein Spieler, der dich getötet oder wiederbelebt hat, mit Namen und, wo das
+  Spiel sie zeigt, Klasse. Die geteilte Ansicht eines Charakters lässt sie weg.
+- **Sitzungen:** Login, Reload und Logout, Client-Version und Sprache, Tag oder Nacht und wann du einen Screenshot gemacht hast
+  (nur der Zeitpunkt, nicht das Bild).
+
+Nicht aufgezeichnet werden Chat und Flüstern, was in deinen Taschen und deiner Bank liegt, mit wem du Post oder Handel
+austauschst, und über andere Spieler nichts außer dem oben Genannten.
 
 ### Mehr
 

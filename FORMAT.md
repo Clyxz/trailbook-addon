@@ -60,7 +60,7 @@ TrailbookDB = {
 
 ## Import
 
-Die Datei behält alles; sie wächst um etwa 30 KB pro Spielstunde. Der Viewer importiert sie auf seiner Seite
+Die Datei behält alles; sie wächst um etwa 50 KB pro Spielstunde, bei viel Kampf auch mehr. Der Viewer importiert sie auf seiner Seite
 „Aufzeichnungen verwalten“ aus dem Ordner WTF, den man dort ablegt oder auswählt, und übernimmt nur, was er noch nicht hat.
 Importieren nach dem Logout oder einem `/reload`: erst dann hat WoW die Datei geschrieben.
 
@@ -119,13 +119,15 @@ Fliegen), gilt das als Sprung: Es beginnt ein neuer Chunk mit einer `teleport`-Z
 `<Sekunden>|<Art>|<x>|<y>|<Felder…>`
 
 x und y sind leer, wenn das Spiel keine Position liefert. Dinge werden über ihre IDs genannt; deren Namen stehen in den
-Tabellen der Spieldateien (Gegenstände, Karten, Flugpunkte, Klassen). Was in keiner Spieldatei steht, schreibt das Addon
-selbst mit: Mitspieler und Quests (Titel, Stufe) in einer eigenen Zeile einmal je Sitzung (`player`, `quest`), die Gilde mit
-ihrem Namen im Zustand `guild`, und was das Spiel erst beim Spielen ausrechnet (Schwierigkeit einer Quest, Tag oder Nacht).
+Tabellen der Spieldateien (Gegenstände, Karten, Flugpunkte, Klassen, Zauber, Bosskämpfe, Berufe, Gebiete). Was in keiner
+Spieldatei steht, schreibt das Addon selbst mit: Spieler, Quests (Titel, Stufe) und NPCs in einer eigenen Zeile einmal je
+Sitzung (`player`, `quest`, `npc`; die Spieldateien von Forever nennen nur Haustiere und Kleintiere), die Gilde mit ihrem
+Namen im Zustand `guild`, und was das Spiel erst beim Spielen ausrechnet (Schwierigkeit einer Quest, Tag oder Nacht).
 
-Ein Zustand (`gear`, `quests`, `group`, `guild`, `daytime`) wird ganz geschrieben: 5 s nach Login und Reload und 0,5 s nach
-einer Änderung; Änderungen, die zusammen kommen (etwa ein Ausrüstungsset), ergeben eine Zeile, und nur, wenn sich etwas
-geändert hat. Solange das Spiel einen Zustand noch nicht kennt (die Gilde kurz nach dem Login), wird nichts geschrieben.
+Ein Zustand (`gear`, `quests`, `xp`, `skills`, `group`, `guild`, `daytime`) wird ganz geschrieben: 5 s nach Login und Reload
+und 0,5 s nach einer Änderung; Änderungen, die zusammen kommen (etwa ein Ausrüstungsset), ergeben eine Zeile, und nur, wenn
+sich etwas geändert hat. Solange das Spiel einen Zustand noch nicht kennt (die Gilde kurz nach dem Login), wird nichts
+geschrieben.
 
 | Art | Felder | Wann |
 |---|---|---|
@@ -137,21 +139,30 @@ geändert hat. Solange das Spiel einen Zustand noch nicht kennt (die Gilde kurz 
 | `quest-done` | Quest-ID, Erfahrung, Kupfer | Quest abgegeben |
 | `quest` | Quest-ID, Titel, Stufe (laut Questlog; leer, wenn die Quest dort nicht steht) | einmal je Sitzung und Quest, sobald sie im Questlog steht, angenommen oder abgegeben wird |
 | `quests` | IDs der Quests im Questlog (ab 0.6.3 ohne die Einträge, die das Spiel dort versteckt), aufsteigend, mit Komma getrennt, jede mit `:` und ihrer Schwierigkeit für den Charakter, wie das Questlog sie färbt (`Enum.RelativeContentDifficulty`: 0 grau, 1 grün, 2 gelb, 3 orange, 4 rot); leer = keine | Zustand, auch nach jedem Levelaufstieg |
-| `death` | – | gestorben |
+| `xp` | Erfahrung in diesem Level, Erfahrung, die das Level braucht, Erholt-Vorrat (leer = keiner) | Zustand, auch beim Betreten und Verlassen eines Gasthauses oder einer Stadt; was der Vorrat dort beim Ausruhen dazugewinnt, steht erst in der nächsten Zeile. Auf der Höchststufe keine |
+| `discovery` | Gebiets-ID (AreaTable.db2; leer, wenn das Spiel sie nicht verrät), Erfahrung (leer = keine, oder unbekannt, wenn das Spiel die Chatzeile verbirgt), Name des Gebiets in der Sprache des Clients (nur, wenn die ID fehlt) | neues Gebiet entdeckt |
+| `skills` | Berufe und Nebenberufe (Kochkunst, Angeln, Erste Hilfe, Reiten …), jeder als SkillLine-ID (SkillLine.db2), Rang und Höchstrang, mit `:` verbunden, nach ID aufsteigend, mit Komma getrennt; leer = keine. Waffen, Rüstungen, Sprachen und Klassenfertigkeiten fehlen, ebenso die Unterlinie, die das Spiel zu jedem Beruf führt (in SkillLine.db2 mit dem Beruf als ParentSkillLineID) | Zustand; solange im Fertigkeitenfenster eine Kategorie mit Berufen eingeklappt ist, kennt das Addon sie nicht und schreibt nichts |
+| `learned` | Zauber-ID (SpellName.db2): eine Fähigkeit, ein Zauber, ein passiver Effekt oder ein Rezept | gelernt; einmal je Sitzung und Zauber |
+| `death` | – | gestorben; meldet das Spiel denselben Tod noch einmal (Forever tut das, auch beim Freilassen des Geists), wird nichts geschrieben. Ältere Aufzeichnungen können denselben Tod mehrfach haben |
+| `death-cause` | NPC-ID des Verursachers (leer, wenn es kein NPC war), GUID eines anderen Spielers, der getötet hat (dazu eine `player`-Zeile), Zauber-ID des tödlichen Treffers (leer = Nahkampf oder Umgebung), Umgebung (`falling` Sturz, `drowning` Ertrinken, `fatigue` Erschöpfung, `fire` Feuer, `lava` Lava, `slime` Schleim; leer = keine), Schaden des tödlichen Treffers, Encounter-ID des laufenden Bosskampfs (leer = keiner, oder unbekannt nach einem Login oder Reload mitten im Kampf: dann liegt der Tod zwischen `boss-pull` und `boss`) | etwa 1 s nach `death`, aus der Todesübersicht des Spiels, ihr letzter Treffer; fehlt, wenn das Spiel keine hat. Gehört zum letzten `death` davor, auch wenn `release`, `alive` oder ein neuer Chunk dazwischen liegen; x und y sind die beim Schreiben, den Ort des Todes hat die `death`-Zeile. Forever sperrt das Kampflog, die Todesübersicht ist die einzige Quelle |
 | `release` | – | Geist freigelassen |
-| `alive` | – | wieder lebendig |
+| `alive` | Art: `corpse` zurück zur Leiche, `spirit` beim Geistheiler (auch auf dem Schlachtfeld), `res` von einem anderen Spieler, `spell` eigener Zauber (Seelenstein, Reinkarnation), `item` eigener Gegenstand; leer, wenn das Spiel kein Zeichen gab (geraten wird nicht); dazu bei `res` die GUID des Spielers, wenn er in der Gruppe ist, sonst sein Name („Vorname Nachname“), bei `spell` die Zauber-ID, bei `item` die Gegenstands-ID | wieder lebendig; die Art kommt aus den Knöpfen und Dialogen, mit denen der Charakter zurückkam. Ältere Aufzeichnungen haben keine Felder |
 | `subzone` | Name (leer = keine) | neue Unterzone |
 | `dungeon-in` | Instanz-ID (die Karte in Map.db2), Schwierigkeit (DifficultyID) | Dungeon, Raid oder Schlachtfeld betreten; auch nach Login oder Reload in einer Instanz |
 | `dungeon-out` | Instanz-ID | wieder verlassen |
+| `boss-pull` | Encounter-ID (DungeonEncounter.db2, nennt Boss und Dungeon), Schwierigkeit (DifficultyID), Gruppengröße | Bosskampf begonnen, auch bei Weltbossen außerhalb von Dungeons |
+| `boss` | Encounter-ID, Ausgang (1 besiegt, 0 Wipe oder abgebrochen, leer = vom Charakter verlassen oder vom Spiel nicht genannt), die Bosse mit NPC-ID und ihrem verbliebenen Leben, wie das Spiel es angibt (`NPC-ID:Wert`, nach NPC-ID, mit Komma getrennt, nur die NPC-ID, wenn das Spiel das Leben verbirgt; leer, wenn es keine Bosse nennt) | Bosskampf zu Ende, für den Charakter auch durch einen Ladebildschirm mitten im Kampf (Teleport hinaus, Geist freigelassen im Dungeon): dann ohne Ausgang und Bosse; seine Dauer ist die Zeit seit `boss-pull` |
 | `flight` | Flugpunkt-ID von, nach (TaxiNodes.db2) | Flugroute gebucht; die Landung zeigt sich am Ende des Flags `t` |
-| `teleport` | Zauber-ID, falls in den 15 s davor gewirkt (8690 = Ruhestein) | erste Zeile eines Chunks an einem neuen Ort, ohne dorthin gelaufen zu sein: nach einem Ladebildschirm oder einem Sprung (Ruhestein ohne Ladebildschirm, Geist freilassen, Beschwörung); den Abreiseort zeigt der letzte Punkt des vorigen Chunks |
+| `teleport` | Zauber-ID, falls in den 15 s davor gewirkt (8690 = Ruhestein); leer, wenn der Charakter tot oder ein Geist ist oder seit dem Tod nichts gewirkt hat, denn dann versetzt ihn das Freilassen oder eine Wiederbelebung (in Aufzeichnungen bis 0.6.5 kann dort noch ein Zauber von vor dem Tod stehen) | erste Zeile eines Chunks an einem neuen Ort, ohne dorthin gelaufen zu sein: nach einem Ladebildschirm oder einem Sprung (Ruhestein ohne Ladebildschirm, Geist freilassen, Beschwörung); den Abreiseort zeigt der letzte Punkt des vorigen Chunks |
 | `screenshot` | – | Screenshot gespeichert; der Dateiname trägt Datum und Uhrzeit in Ortszeit |
 | `item` | ItemID, Anzahl, Herkunft: `loot` geplündert, `received` Belohnung oder Kauf, `created` hergestellt | Gegenstand erhalten (aus der Beute-Meldung im Chat) |
 | `gear` | 19 ItemIDs nach Platz, mit Komma getrennt, 0 = leer | Zustand |
 | `money` | Änderung, neuer Stand, beides in Kupfer; Änderung leer = Stand beim Login oder Reload | Gold geändert |
 | `kill` | Name, Erfahrung | Gegner gestorben, der Erfahrung gab; Forever sperrt das Kampflog, Kills ohne Erfahrung (graue Gegner, Höchststufe) fehlen |
+| `npc` | NPC-ID, Name in der Sprache des Clients | einmal je Sitzung und NPC, sobald eine andere Zeile ihn nennt (`death-cause`, `boss`): mit dem Namen, den das Spiel für diese NPC-ID zeigt (im Tooltip ihres Links; in Instanzen erst nach dem nächsten Ladebildschirm), bei Bossen mit dem, den das Spiel am Ende ihres Kampfes nennt. Nennt das Spiel keinen, fehlt die Zeile |
+| `cast` | Zauber-ID (SpellName.db2), Dauer in Zehntelsekunden (0 = sofort), Ausgang (leer = gewirkt oder Kanal beendet, `i` = abgebrochen oder unterbrochen; ein Kanal wie Angeln bekommt nie `i`) | Zauber oder Fähigkeit zu Ende, auch Berufe, Sammeln, Angeln, Reittiere und Gegenstände, nicht der automatische Angriff (Angriff, Automatischer Schuss, Schießen) und nicht der Effekt, den das Spiel bei jedem Login wirkt (836); die Zeile steht am Ende, der Beginn liegt die Dauer davor. Ein Zauber mit Zauberzeit, der danach kanalisiert wird (Gedankenkontrolle), ergibt zwei Zeilen: erst die Zauberzeit, dann den Kanal |
 | `group` | GUIDs der anderen Mitglieder, aufsteigend, mit Komma getrennt; leer = keine Gruppe | Zustand |
-| `player` | GUID, Name („Vorname Nachname“), Klasse (Token wie `WARRIOR`) | einmal je Sitzung und Mitspieler, sobald das Spiel den Namen kennt |
+| `player` | GUID, Name („Vorname Nachname“), Klasse (Token wie `WARRIOR`; leer, wenn das Spiel sie nicht kennt) | einmal je Sitzung und Spieler, den eine andere Zeile mit seiner GUID nennt (Mitspieler in `group`, wer den Charakter getötet hat in `death-cause`), sobald das Spiel den Namen kennt |
 | `guild` | Name der Gilde, Rang, Rangnummer (0 = Gildenmeister); ein leeres Feld = keine Gilde | Zustand |
 | `daytime` | 1 = Tag, 0 = Nacht, wie Sonne oder Mond an der Minimap | Zustand |
 
@@ -176,18 +187,27 @@ Retail: Startplatz und Weg in Northshire liegen auf der Minimap richtig.
 | Datei | Aufgabe |
 |---|---|
 | `Trailbook.toc` | Metadaten, gespeicherte Variablen (mit `LoadSavedVariablesFirst`, damit sie beim Laden der Dateien schon da sind), Ladereihenfolge |
-| `Core.lua` | Events, Timer, vom Spiel versteckte Werte, Position, letzter Zauber, Spielmeldungen lesen, Zustände schreiben, Chat-Ausgabe |
+| `Core.lua` | Events, Timer, vom Spiel versteckte Werte, Position, Namen von Spielern, die Gruppe, letzter Zauber, Spielmeldungen lesen, Zustände schreiben, Chat-Ausgabe |
 | `Store.lua` | einziger Schreiber von `TrailbookDB` |
 | `Session.lua` | Login, Reload, Logout, Charakter, Warnung bei fehlenden Daten |
 | `Trail.lua` | Punkte und Sprünge |
 | `Progress.lua` | Level, Quests und Questlog |
-| `Deaths.lua` | Tod, Geist, Wiederbelebung |
+| `Experience.lua` | Erfahrung und Erholt-Vorrat |
+| `Discoveries.lua` | entdeckte Gebiete |
+| `Skills.lua` | Berufe und Nebenberufe |
+| `Learned.lua` | gelernte Fähigkeiten, Zauber und Rezepte |
+| `Players.lua` | Namen und Klassen der Spieler, die eine Zeile per GUID nennt |
+| `Creatures.lua` | NPC-IDs und die Namen der NPCs |
+| `Deaths.lua` | Tod, Geist, Wiederbelebung und wie |
+| `DeathRecap.lua` | Ursache jedes Todes aus der Todesübersicht |
+| `Bosses.lua` | Bosskämpfe |
 | `Travel.lua` | neue Chunks bei Zone und Ladebildschirm, Unterzonen, Dungeons, Flugrouten, Zauber vor dem Ladebildschirm |
 | `Screenshots.lua` | Screenshots |
 | `Loot.lua` | erhaltene Gegenstände |
 | `Gear.lua` | Ausrüstung |
 | `Money.lua` | Gold |
 | `Kills.lua` | Kills |
+| `Casts.lua` | gewirkte Zauber |
 | `Group.lua` | Gruppe |
 | `Guild.lua` | Gilde |
 | `Daytime.lua` | Tag und Nacht |

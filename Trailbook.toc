@@ -3,7 +3,7 @@
 ## Notes: Records your route and key moments to view on the Trailbook website.
 ## Notes-deDE: Zeichnet deinen Weg und wichtige Momente für die Trailbook-Website auf.
 ## Author: Martin
-## Version: 0.6.5
+## Version: 0.7.0
 ## SavedVariables: TrailbookSettings
 ## SavedVariablesPerCharacter: TrailbookDB
 ## LoadSavedVariablesFirst: 1
@@ -13,13 +13,22 @@ Store.lua
 Session.lua
 Trail.lua
 Progress.lua
+Experience.lua
+Discoveries.lua
+Skills.lua
+Learned.lua
+Players.lua
+Creatures.lua
 Deaths.lua
+DeathRecap.lua
+Bosses.lua
 Travel.lua
 Screenshots.lua
 Loot.lua
 Gear.lua
 Money.lua
 Kills.lua
+Casts.lua
 Group.lua
 Guild.lua
 Daytime.lua
