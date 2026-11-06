@@ -1,7 +1,7 @@
 -- Status: a small movable info box that shows whether Trailbook records and how much is not saved yet, or that no saved data was
--- loaded (ns.dataMissing, Session.lua); /trailbook shows or hides it. A /reload button right of it saves, since WoW saves on every
--- reload. A right-click opens its menu: hide it, or clear up, which deletes the finished recordings of this character after
--- asking (also /trailbook clear), once they are on the website.
+-- loaded (ns.dataMissing, Session.lua); /trailbook shows or hides it. A /reload button right of it saves, since WoW saves on
+-- every reload. A right-click opens its menu: hide it, or clear up, which deletes the finished recordings of this character
+-- after asking (also /trailbook clear), once they are on the website.
 -- /trailbook help prints the steps from playing to the website and back, each with the place where it happens. The frame has no
 -- global name, so its place lives only in TrailbookSettings and not also in the client's layout cache per character.
 local addonName, ns = ...
