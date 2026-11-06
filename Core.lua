@@ -29,6 +29,7 @@ local TEXTS = {
         aboutKB = "ca. %d KB",
         hints = "/reload speichert, Ziehen verschiebt, Rechtsklick öffnet das Menü",
         hintsMissing = "Ziehen verschiebt, Rechtsklick öffnet das Menü",
+        reloadHint = "Lädt die Oberfläche neu, dabei speichert WoW die Aufzeichnung.",
         shown = "Infobox an.",
         hidden = "Infobox aus, /trailbook zeigt sie wieder.",
         menuHide = "Ausblenden",
@@ -69,6 +70,7 @@ local TEXTS = {
         aboutKB = "about %d KB",
         hints = "/reload saves, drag to move, right-click for the menu",
         hintsMissing = "Drag to move, right-click for the menu",
+        reloadHint = "Reloads the interface, and WoW saves the recording.",
         shown = "Info box shown.",
         hidden = "Info box hidden, /trailbook shows it again.",
         menuHide = "Hide",
@@ -139,7 +141,7 @@ end
 -- A snapshot: read() gives the whole of something (gear, quest log, group, guild) as the fields of one event, nothing while the
 -- game does not know it yet. It is written as an event of this kind a few seconds after login or reload and shortly after any of
 -- the change events, once for changes that come together and only when it differs from the last one written; written() runs
--- after each write
+-- after each write. Returns a function that counts as a change event, for events that concern it only for some units
 function ns.Snapshot(kind, read, changeEvents, written)
     local last
     local pending = false
@@ -167,11 +169,13 @@ function ns.Snapshot(kind, read, changeEvents, written)
             schedule(SNAPSHOT_LOGIN_DELAY)
         end
     end)
-    for _, event in ipairs(changeEvents) do
-        ns.On(event, function()
-            schedule(SNAPSHOT_CHANGE_DELAY)
-        end)
+    local function changed()
+        schedule(SNAPSHOT_CHANGE_DELAY)
     end
+    for _, event in ipairs(changeEvents) do
+        ns.On(event, changed)
+    end
+    return changed
 end
 
 -- A name as the game gave it, nil when it gave none: a secret value, an empty text or the placeholder for an unknown name

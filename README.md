@@ -39,7 +39,7 @@ Then:
 ### So that nothing gets lost
 
 - WoW saves only when you log out, on `/reload` and when you quit. After a crash everything since the last save is missing:
-  type `/reload` now and then, at the latest when the info box turns yellow.
+  click the `/reload` button next to the info box (or type `/reload`) now and then, at the latest when the box turns yellow.
 - Until you upload, your recordings are only on your computer. Upload after every session.
 - If the addon says "No saved data loaded": quit WoW and back up `Trailbook.lua.bak` before you log in again.
 
@@ -54,8 +54,9 @@ addon sends nothing anywhere.
 - **Progress:** levels, experience and rested pool, quests you accepted and turned in, your quest log, areas you discovered.
 - **Fights and deaths:** creatures that gave you experience, boss fights (pull, kill or wipe), each death with what caused it
   (the creature, player or fall that killed you), and how you came back to life.
-- **Your character:** gear, gold, items you received, your guild and rank, your professions and their skill, spells and recipes
-  you learned, and every spell or ability you cast (not the auto attack).
+- **Your character:** gear, gold, items you received, your pet or demon with its name, level and family and when it dies, your
+  guild and rank, your professions and their skill, spells and recipes you learned, and every spell or ability you cast (not
+  the auto attack).
 - **Other players:** your group members and a player who killed or resurrected you, by name, with their class where the game
   shows it. The shared view of a character leaves them out.
 - **Sessions:** login, reload and logout, client version and language, day or night, and when you took a screenshot (only the
@@ -101,7 +102,7 @@ Updates von selbst. Oder die Dateien dieses Repositorys in einen Ordner `Trailbo
 ### Damit nichts verloren geht
 
 - WoW speichert nur beim Ausloggen, bei `/reload` und beim Beenden. Nach einem Absturz fehlt alles seit dem letzten Speichern:
-  zwischendurch `/reload`, spätestens wenn die Infobox gelb wird.
+  zwischendurch auf den Knopf `/reload` neben der Infobox klicken (oder `/reload` eingeben), spätestens wenn sie gelb wird.
 - Bis zum Hochladen liegen deine Aufzeichnungen nur auf deinem Rechner. Lade nach jedem Spielen hoch.
 - Meldet das Addon „Keine gespeicherten Daten geladen“: WoW beenden und `Trailbook.lua.bak` sichern, bevor du wieder einloggst.
 
@@ -116,8 +117,9 @@ schickt nichts irgendwohin.
 - **Fortschritt:** Level, Erfahrung und Erholt-Vorrat, angenommene und abgegebene Quests, dein Questlog, entdeckte Gebiete.
 - **Kämpfe und Tode:** Gegner, die dir Erfahrung gaben, Bosskämpfe (Pull, Sieg oder Wipe), jeder Tod mit seiner Ursache (der
   Gegner, Spieler oder Sturz, der dich getötet hat) und wie du wieder ins Leben kamst.
-- **Dein Charakter:** Ausrüstung, Gold, erhaltene Gegenstände, deine Gilde und dein Rang, deine Berufe mit ihrer Fertigkeit,
-  gelernte Zauber und Rezepte und jeder Zauber und jede Fähigkeit, die du wirkst (ohne den automatischen Angriff).
+- **Dein Charakter:** Ausrüstung, Gold, erhaltene Gegenstände, dein Begleiter (Tier oder Dämon) mit Name, Level und Familie
+  und wann er stirbt, deine Gilde und dein Rang, deine Berufe mit ihrer Fertigkeit, gelernte Zauber und Rezepte und jeder
+  Zauber und jede Fähigkeit, die du wirkst (ohne den automatischen Angriff).
 - **Andere Spieler:** deine Gruppenmitglieder und ein Spieler, der dich getötet oder wiederbelebt hat, mit Namen und, wo das
   Spiel sie zeigt, Klasse. Die geteilte Ansicht eines Charakters lässt sie weg.
 - **Sitzungen:** Login, Reload und Logout, Client-Version und Sprache, Tag oder Nacht und wann du einen Screenshot gemacht hast

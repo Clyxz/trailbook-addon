@@ -1,11 +1,15 @@
 -- Status: a small movable info box that shows whether Trailbook records and how much is not saved yet, or that no saved data was
--- loaded (ns.dataMissing, Session.lua); /trailbook shows or hides it. A right-click opens its menu: hide it, or clear up, which
--- deletes the finished recordings of this character after asking (also /trailbook clear), once they are on the website.
+-- loaded (ns.dataMissing, Session.lua); /trailbook shows or hides it. A /reload button right of it saves, since WoW saves on every
+-- reload. A right-click opens its menu: hide it, or clear up, which deletes the finished recordings of this character after
+-- asking (also /trailbook clear), once they are on the website.
 -- /trailbook help prints the steps from playing to the website and back, each with the place where it happens. The frame has no
 -- global name, so its place lives only in TrailbookSettings and not also in the client's layout cache per character.
 local addonName, ns = ...
 
 local REFRESH = 5
+local PADDING = 30 -- the dot and the space around the text
+local BUTTON_GAP = 2
+local BUTTON_PADDING = 16
 local WARN_MINUTES = 60
 local BIG_FILE = 2 * 1024 * 1024
 local DEFAULT_POINT = { "TOP", "TOP", 0, -120 }
@@ -35,7 +39,8 @@ frame:EnableMouse(true)
 frame:RegisterForDrag("LeftButton")
 
 local background = frame:CreateTexture(nil, "BACKGROUND")
-background:SetAllPoints()
+background:SetPoint("TOPLEFT")
+background:SetPoint("BOTTOMLEFT")
 background:SetColorTexture(0, 0, 0, 0.6)
 
 local dot = frame:CreateTexture(nil, "ARTWORK")
@@ -44,6 +49,21 @@ dot:SetPoint("LEFT", 8, 0)
 
 local label = frame:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
 label:SetPoint("LEFT", dot, "RIGHT", 6, 0)
+
+-- The /reload button, a box of its own right of the info box but inside the frame, so that keeping the frame on screen keeps it
+-- there too. Missing while no saved data was loaded: the next save would replace the old state (see noData)
+local reloadUI = C_UI and C_UI.Reload or ReloadUI
+local reload = CreateFrame("Button", nil, frame)
+reload:SetPoint("TOPRIGHT")
+reload:SetPoint("BOTTOMRIGHT")
+reload:SetNormalFontObject("GameFontHighlightSmall")
+reload:SetHighlightFontObject("GameFontNormalSmall")
+reload:SetText("/reload")
+reload:SetPushedTextOffset(1, -1)
+
+local reloadBackground = reload:CreateTexture(nil, "BACKGROUND")
+reloadBackground:SetAllPoints()
+reloadBackground:SetColorTexture(0, 0, 0, 0.6)
 
 local function recording()
     return ns.Here() ~= nil
@@ -81,7 +101,14 @@ local function refresh()
         dot:SetColorTexture(0.2, 0.8, 0.2)
         label:SetText(GOLD .. "Trailbook|r  " .. ns.Text("unsaved", minutes))
     end
-    frame:SetWidth(label:GetStringWidth() + 30)
+    reload:SetShown(not ns.dataMissing)
+    reload:SetWidth(reload:GetTextWidth() + BUTTON_PADDING)
+    local width = label:GetStringWidth() + PADDING
+    background:SetWidth(width)
+    if reload:IsShown() then
+        width = width + BUTTON_GAP + reload:GetWidth()
+    end
+    frame:SetWidth(width)
 end
 
 local function place()
@@ -143,6 +170,18 @@ end
 
 frame:SetScript("OnEnter", showTooltip)
 frame:SetScript("OnLeave", function()
+    GameTooltip:Hide()
+end)
+reload:SetScript("OnClick", function()
+    reloadUI()
+end)
+reload:SetScript("OnEnter", function(self)
+    GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
+    GameTooltip:AddLine("/reload")
+    GameTooltip:AddLine(ns.Text("reloadHint"), 1, 1, 1, true)
+    GameTooltip:Show()
+end)
+reload:SetScript("OnLeave", function()
     GameTooltip:Hide()
 end)
 frame:SetScript("OnMouseUp", function(self, button)

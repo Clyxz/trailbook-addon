@@ -8,13 +8,15 @@ ohne das Spiel ansehen kann. Im Spiel zeigt es nur eine kleine Infobox.
 Eine kleine Infobox, die sich mit der Maus verschieben lässt: `Trailbook  23 min ungespeichert`. Der Punkt davor ist grün,
 solange das Addon Positionen aufzeichnet, gelb ab 60 Minuten ohne Speichern und grau ohne Position (Dungeon,
 Ladebildschirm). Beim Darüberfahren zeigt ein Tooltip, wann zuletzt gespeichert wurde (beim Login oder beim letzten
-`/reload`), wie viele Minuten, Zeilen und KB seitdem ungespeichert sind und wie groß die Daten insgesamt sind. `/trailbook`
+`/reload`), wie viele Minuten, Zeilen und KB seitdem ungespeichert sind und wie groß die Daten insgesamt sind. Rechts daneben
+sitzt ein Knopf `/reload`: Er lädt die Oberfläche neu, dabei speichert WoW. `/trailbook`
 blendet die Infobox aus oder ein und schreibt denselben Stand in den Chat. Ein Rechtsklick öffnet ein Menü mit „Ausblenden“ und
 „Aufräumen …“: Nach einer Rückfrage mit Tagen und Größe löscht das Aufräumen alle abgeschlossenen Abschnitte dieses Charakters
 (auch die früherer Charaktere gleichen Namens), der laufende bleibt; `/trailbook clear` tut dasselbe. Ab 2 MB erinnert der
 Tooltip daran. `/trailbook help` schreibt die Schritte vom Spielen über das Hochladen bis zum Aufräumen in den Chat, jeden mit
 dem Ort, an dem er passiert (im Spiel oder auf der Website). Hat das Addon beim Einloggen keine gespeicherten Daten
-geladen, ist der Punkt rot und die Infobox sagt `keine Daten geladen` (siehe unten). Die Texte im Spiel sind auf Deutsch, in einem
+geladen, ist der Punkt rot, die Infobox sagt `keine Daten geladen` und der Knopf `/reload` fehlt, denn das nächste Speichern
+würde den alten Stand überschreiben (siehe unten). Die Texte im Spiel sind auf Deutsch, in einem
 nicht deutschen Client auf Englisch.
 
 Position und Sichtbarkeit liegen kontoweit in `WTF\Account\<Konto>\SavedVariables\Trailbook.lua` (`TrailbookSettings`). Diese
@@ -122,11 +124,12 @@ x und y sind leer, wenn das Spiel keine Position liefert. Dinge werden über ihr
 Tabellen der Spieldateien (Gegenstände, Karten, Flugpunkte, Klassen, Zauber, Bosskämpfe, Berufe, Gebiete). Was in keiner
 Spieldatei steht, schreibt das Addon selbst mit: Spieler, Quests (Titel, Stufe) und NPCs in einer eigenen Zeile einmal je
 Sitzung (`player`, `quest`, `npc`; die Spieldateien von Forever nennen nur Haustiere und Kleintiere), die Gilde mit ihrem
-Namen im Zustand `guild`, und was das Spiel erst beim Spielen ausrechnet (Schwierigkeit einer Quest, Tag oder Nacht).
+Namen im Zustand `guild`, den Begleiter mit Namen und Familie im Zustand `pet`, und was das Spiel erst beim Spielen ausrechnet
+(Schwierigkeit einer Quest, Tag oder Nacht).
 
-Ein Zustand (`gear`, `quests`, `xp`, `skills`, `group`, `guild`, `daytime`) wird ganz geschrieben: 5 s nach Login und Reload
-und 0,5 s nach einer Änderung; Änderungen, die zusammen kommen (etwa ein Ausrüstungsset), ergeben eine Zeile, und nur, wenn
-sich etwas geändert hat. Solange das Spiel einen Zustand noch nicht kennt (die Gilde kurz nach dem Login), wird nichts
+Ein Zustand (`gear`, `quests`, `xp`, `skills`, `group`, `pet`, `guild`, `daytime`) wird ganz geschrieben: 5 s nach Login und
+Reload und 0,5 s nach einer Änderung; Änderungen, die zusammen kommen (etwa ein Ausrüstungsset), ergeben eine Zeile, und nur,
+wenn sich etwas geändert hat. Solange das Spiel einen Zustand noch nicht kennt (die Gilde kurz nach dem Login), wird nichts
 geschrieben.
 
 | Art | Felder | Wann |
@@ -163,6 +166,7 @@ geschrieben.
 | `cast` | Zauber-ID (SpellName.db2), Dauer in Zehntelsekunden (0 = sofort), Ausgang (leer = gewirkt oder Kanal beendet, `i` = abgebrochen oder unterbrochen; ein Kanal wie Angeln bekommt nie `i`) | Zauber oder Fähigkeit zu Ende, auch Berufe, Sammeln, Angeln, Reittiere und Gegenstände, nicht der automatische Angriff (Angriff, Automatischer Schuss, Schießen) und nicht der Effekt, den das Spiel bei jedem Login wirkt (836); die Zeile steht am Ende, der Beginn liegt die Dauer davor. Ein Zauber mit Zauberzeit, der danach kanalisiert wird (Gedankenkontrolle), ergibt zwei Zeilen: erst die Zauberzeit, dann den Kanal |
 | `group` | GUIDs der anderen Mitglieder, aufsteigend, mit Komma getrennt; leer = keine Gruppe | Zustand |
 | `player` | GUID, Name („Vorname Nachname“), Klasse (Token wie `WARRIOR`; leer, wenn das Spiel sie nicht kennt) | einmal je Sitzung und Spieler, den eine andere Zeile mit seiner GUID nennt (Mitspieler in `group`, wer den Charakter getötet hat in `death-cause`), sobald das Spiel den Namen kennt |
+| `pet` | Name des Begleiters, wie das Spiel ihn zeigt (ein frisch gezähmtes Tier trägt den Namen des Tiers, aus dem es stammt, etwa `Gray Forest Wolf`, bis der Jäger es umbenennt), Level, Familie in der Sprache des Clients, wie das Spiel sie nennt (`Wolf`, `Eber`, `Wichtel` in einem deutschen Client; leer, wenn es keine nennt, etwa bei Humanoiden), `d`, solange er tot ist (leer = lebt); ein leeres Feld = kein Begleiter. Die NPC-ID fehlt, weil Forever jedem Tier eines Jägers dieselbe gibt (165189); in zwei Zeilen aus einem Test vor 0.7.1 steht sie statt des vierten Felds | Zustand, auch wenn er kommt oder geht, ein Level aufsteigt, einen Namen bekommt oder stirbt; solange das Spiel seinen Namen noch nicht kennt, wird nichts geschrieben. Ob er tot ist, fragt das Addon alle 2 s ab, solange es einen Begleiter gibt: Das Spiel behält ein totes Tier als Begleiter, bis es wiederbelebt wird oder verschwindet. Ein Tod mit „Tier wiederbeleben“ ergibt so drei Zeilen: mit `d` beim Tod, ohne Begleiter, sobald das Wiederbeleben beginnt, und wieder ohne `d` danach. Verbirgt Forever, ob er tot ist (in Dungeons möglich), fehlt das `d`. Begleiter ist, was das Spiel zur Einheit „pet“ macht: das Tier eines Jägers, der Dämon eines Hexenmeisters, aber auch eine Kreatur unter Gedankenkontrolle und ein versklavter Dämon; ein Spieler unter Gedankenkontrolle zählt als keiner, denn Spieler nennt das Addon nur in `player`-Zeilen. Wie ein Begleiter kam oder ging, zeigen die `cast`-Zeilen davor (etwa 1515 Wildtier zähmen) |
 | `guild` | Name der Gilde, Rang, Rangnummer (0 = Gildenmeister); ein leeres Feld = keine Gilde | Zustand |
 | `daytime` | 1 = Tag, 0 = Nacht, wie Sonne oder Mond an der Minimap | Zustand |
 
@@ -209,6 +213,7 @@ Retail: Startplatz und Weg in Northshire liegen auf der Minimap richtig.
 | `Kills.lua` | Kills |
 | `Casts.lua` | gewirkte Zauber |
 | `Group.lua` | Gruppe |
+| `Pet.lua` | Begleiter |
 | `Guild.lua` | Gilde |
 | `Daytime.lua` | Tag und Nacht |
-| `Status.lua` | Statuszeile, Tooltip, Menü mit Aufräumen und `/trailbook` |
+| `Status.lua` | Statuszeile mit Knopf `/reload`, Tooltip, Menü mit Aufräumen und `/trailbook` |
