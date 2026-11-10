@@ -13,7 +13,7 @@
 ## English
 
 An addon for World of Warcraft: Forever that records where your character goes and what happens on the way: quests,
-experience, loot, levels, deaths and what caused them, boss fights, professions, spells cast, reputation, gold, gear, group and guild. The [Trailbook website](https://trailbook.gg) shows it on a
+experience, loot, levels, deaths and what caused them, boss fights, professions, spells cast, reputation, gold, gear, bags, group and guild. The [Trailbook website](https://trailbook.gg) shows it on a
 map with a timeline, on any computer and only to you, unless you share a character.
 
 Trailbook was inspired by [Muddy Boots](https://www.curseforge.com/wow/addons/muddy-boots) by Mookz, which lets you relive
@@ -54,7 +54,8 @@ addon sends nothing anywhere.
 - **Progress:** levels, experience and rested pool, quests you accepted and turned in, your quest log, areas you discovered.
 - **Fights and deaths:** creatures that gave you experience, boss fights (pull, kill or wipe), each death with what caused it
   (the creature, player or fall that killed you), and how you came back to life.
-- **Your character:** gear, gold, items you received, your pet or demon with its name, level and family and when it dies, your
+- **Your character:** gear, what is in your bags (each item with its count, without ammunition), gold, items you received, your
+  pet or demon with its name, level and family and when it dies, your
   guild and rank, your reputation with each faction you know, your professions and their skill, spells and recipes you learned, and every spell or ability you cast (not
   the auto attack).
 - **Other players:** your group members and a player who killed or resurrected you, by name, with their class where the game
@@ -62,7 +63,7 @@ addon sends nothing anywhere.
 - **Sessions:** login, reload and logout, client version and language, day or night, and when you took a screenshot (only the
   time, not the picture).
 
-Not recorded: chat and whispers, what is in your bags and bank, who you mail or trade with, and nothing about other players
+Not recorded: chat and whispers, what is in your bank, who you mail or trade with, and nothing about other players
 beyond the above.
 
 ### More
@@ -75,7 +76,7 @@ beyond the above.
 ## Deutsch
 
 Ein Addon für World of Warcraft: Forever schreibt mit, wo dein Charakter unterwegs ist und was dabei passiert: Quests,
-Erfahrung, Beute, Level, Tode und ihre Ursachen, Bosskämpfe, Berufe, gewirkte Zauber, Ruf, Gold, Ausrüstung, Gruppe und Gilde. Die [Trailbook-Website](https://trailbook.gg) zeigt
+Erfahrung, Beute, Level, Tode und ihre Ursachen, Bosskämpfe, Berufe, gewirkte Zauber, Ruf, Gold, Ausrüstung, Taschen, Gruppe und Gilde. Die [Trailbook-Website](https://trailbook.gg) zeigt
 es auf einer Karte mit Zeitleiste, auf jedem Rechner und nur für dich, ausser du teilst einen Charakter.
 
 Inspiriert hat Trailbook das Addon [Muddy Boots](https://www.curseforge.com/wow/addons/muddy-boots) von Mookz, mit dem du
@@ -117,7 +118,8 @@ schickt nichts irgendwohin.
 - **Fortschritt:** Level, Erfahrung und Erholt-Vorrat, angenommene und abgegebene Quests, dein Questlog, entdeckte Gebiete.
 - **Kämpfe und Tode:** Gegner, die dir Erfahrung gaben, Bosskämpfe (Pull, Sieg oder Wipe), jeder Tod mit seiner Ursache (der
   Gegner, Spieler oder Sturz, der dich getötet hat) und wie du wieder ins Leben kamst.
-- **Dein Charakter:** Ausrüstung, Gold, erhaltene Gegenstände, dein Begleiter (Tier oder Dämon) mit Name, Level und Familie
+- **Dein Charakter:** Ausrüstung, was in deinen Taschen liegt (jeder Gegenstand mit Anzahl, ohne Munition), Gold, erhaltene
+  Gegenstände, dein Begleiter (Tier oder Dämon) mit Name, Level und Familie
   und wann er stirbt, deine Gilde und dein Rang, dein Ruf bei jeder Fraktion, die du kennst, deine Berufe mit ihrer Fertigkeit, gelernte Zauber und Rezepte und jeder
   Zauber und jede Fähigkeit, die du wirkst (ohne den automatischen Angriff).
 - **Andere Spieler:** deine Gruppenmitglieder und ein Spieler, der dich getötet oder wiederbelebt hat, mit Namen und, wo das
@@ -125,7 +127,7 @@ schickt nichts irgendwohin.
 - **Sitzungen:** Login, Reload und Logout, Client-Version und Sprache, Tag oder Nacht und wann du einen Screenshot gemacht hast
   (nur der Zeitpunkt, nicht das Bild).
 
-Nicht aufgezeichnet werden Chat und Flüstern, was in deinen Taschen und deiner Bank liegt, mit wem du Post oder Handel
+Nicht aufgezeichnet werden Chat und Flüstern, was in deiner Bank liegt, mit wem du Post oder Handel
 austauschst, und über andere Spieler nichts außer dem oben Genannten.
 
 ### Mehr

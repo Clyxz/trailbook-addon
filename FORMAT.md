@@ -131,7 +131,8 @@ Name in der Sprache des Clients da (das Gebiet in `discovery`, die Familie in `p
 Ein Zustand (`gear`, `quests`, `xp`, `skills`, `group`, `pet`, `guild`, `reputation`, `daytime`) wird ganz geschrieben: 5 s nach Login und
 Reload und 0,5 s nach einer Änderung; Änderungen, die zusammen kommen (etwa ein Ausrüstungsset), ergeben eine Zeile, und nur,
 wenn sich etwas geändert hat. Solange das Spiel einen Zustand noch nicht kennt (die Gilde kurz nach dem Login), wird nichts
-geschrieben.
+geschrieben. Die Taschen (`bags`) stehen nur 5 s nach Login und Reload ganz da, danach schreibt das Addon nur, was sich an ihnen
+geändert hat: Der Inhalt zu einem Zeitpunkt ist die letzte Zeile mit `all` davor plus alle `changed`-Zeilen bis dahin.
 
 | Art | Felder | Wann |
 |---|---|---|
@@ -161,6 +162,7 @@ geschrieben.
 | `screenshot` | – | Screenshot gespeichert; der Dateiname trägt Datum und Uhrzeit in Ortszeit |
 | `item` | ItemID, Anzahl, Herkunft: `loot` geplündert, `received` Belohnung oder Kauf, `created` hergestellt | Gegenstand erhalten (aus der Beute-Meldung im Chat) |
 | `gear` | 19 ItemIDs nach Platz, mit Komma getrennt, 0 = leer | Zustand |
+| `bags` | Umfang: `all` = der ganze Inhalt, `changed` = nur was sich geändert hat; dann die Gegenstände als ItemID und Anzahl mit `:` verbunden, nach ItemID aufsteigend, mit Komma getrennt; bei `changed` heißt Anzahl 0, dass der Gegenstand die Taschen verlassen hat; bei `all` leer = leere Taschen. Gezählt wird, was im Rucksack und in den Taschen der vier Taschenplätze liegt (auch im Köcher), gleiche Gegenstände zusammen; die Bank nicht und keine Munition (Gegenstandsklasse 6: Pfeile und Kugeln, die jeder Schuss verbraucht, was eine Zeile je Schuss ergäbe). Seit 0.7.3 | `all` 5 s nach Login und Reload, `changed`, sobald das Spiel die Taschen nach einer Änderung fertig aktualisiert hat (`BAG_UPDATE_DELAYED`) und sich eine Anzahl geändert hat; Umräumen und Stapel teilen ergeben keine Zeile |
 | `money` | Änderung, neuer Stand, beides in Kupfer; Änderung leer = Stand beim Login oder Reload | Gold geändert |
 | `kill` | Name, Erfahrung | Gegner gestorben, der Erfahrung gab; Forever sperrt das Kampflog, Kills ohne Erfahrung (graue Gegner, Höchststufe) fehlen |
 | `npc` | NPC-ID, Name in der Sprache des Clients | einmal je Sitzung und NPC, sobald eine andere Zeile ihn nennt (`death-cause`, `boss`): mit dem Namen, den das Spiel für diese NPC-ID zeigt (im Tooltip ihres Links; in Instanzen erst nach dem nächsten Ladebildschirm), bei Bossen mit dem, den das Spiel am Ende ihres Kampfes nennt. Nennt das Spiel keinen, fehlt die Zeile |
@@ -192,7 +194,7 @@ Retail: Startplatz und Weg in Northshire liegen auf der Minimap richtig.
 
 | Datei | Aufgabe |
 |---|---|
-| `Trailbook.toc` | Metadaten, gespeicherte Variablen (mit `LoadSavedVariablesFirst`, damit sie beim Laden der Dateien schon da sind), Ladereihenfolge |
+| `Trailbook.toc` | Metadaten (mit dem Icon in der Addon-Liste, einem Icon des Spiels), gespeicherte Variablen (mit `LoadSavedVariablesFirst`, damit sie beim Laden der Dateien schon da sind), Ladereihenfolge |
 | `Core.lua` | Events, Timer, vom Spiel versteckte Werte, Position, Namen von Spielern, die Gruppe, letzter Zauber, Spielmeldungen lesen, Zustände schreiben, Chat-Ausgabe |
 | `Store.lua` | einziger Schreiber von `TrailbookDB` |
 | `Session.lua` | Login, Reload, Logout, Charakter, Warnung bei fehlenden Daten |
@@ -211,6 +213,7 @@ Retail: Startplatz und Weg in Northshire liegen auf der Minimap richtig.
 | `Screenshots.lua` | Screenshots |
 | `Loot.lua` | erhaltene Gegenstände |
 | `Gear.lua` | Ausrüstung |
+| `Bags.lua` | Inhalt der Taschen |
 | `Money.lua` | Gold |
 | `Kills.lua` | Kills |
 | `Casts.lua` | gewirkte Zauber |

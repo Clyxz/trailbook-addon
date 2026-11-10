@@ -2,8 +2,9 @@
 ## Title: Trailbook
 ## Notes: Records your route and key moments to view on the Trailbook website.
 ## Notes-deDE: Zeichnet deinen Weg und wichtige Momente für die Trailbook-Website auf.
+## IconTexture: Interface\Icons\INV_Misc_Book_11
 ## Author: Martin
-## Version: 0.7.2
+## Version: 0.7.3
 ## SavedVariables: TrailbookSettings
 ## SavedVariablesPerCharacter: TrailbookDB
 ## LoadSavedVariablesFirst: 1
@@ -26,6 +27,7 @@ Travel.lua
 Screenshots.lua
 Loot.lua
 Gear.lua
+Bags.lua
 Money.lua
 Kills.lua
 Casts.lua
