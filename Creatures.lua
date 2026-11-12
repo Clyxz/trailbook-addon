@@ -1,16 +1,19 @@
 -- Creatures: once per session an npc line with a creature's NPC ID, its name and its classification, when another line names
--- it (a kill, a killer, a boss). No game file names creatures (Creature.db2 holds only about 180 pets and critters), so the
--- name comes from the game itself, in the client's language, the same for every creature of that ID: from the creature when
--- the addon saw it (Kills.lua tells what it sees in fights), else from the tooltip of a unit link for that NPC ID. The game may
--- first have to ask the server for an NPC it has not shown yet and hides creature tooltips inside instances: then it is asked
--- again a few seconds later and after the next loading screen, and the line comes at once should the addon see the creature
--- meanwhile. Without an answer no line is written; nothing is guessed from other names. The classification (normal, elite,
--- rare, rareelite, worldboss …) is known only for a creature the addon saw; if it sees one only after its line, the line is
--- written again, with it
+-- it (a kill, a killer, a boss), and once more after each kill of an elite, a rare or a world boss, so that every part of a
+-- recording that holds such a kill also says what was killed. No game file names creatures (Creature.db2 holds only about 180
+-- pets and critters), so the name comes from the game itself, in the client's language, the same for every creature of that
+-- ID: from the creature when the addon saw it (Kills.lua tells what it sees in fights), else from the tooltip of a unit link for
+-- that NPC ID. The game may first have to ask the server for an NPC it has not shown yet and hides creature tooltips inside
+-- instances: then it is asked again a few seconds later and after the next loading screen, and the line comes at once should
+-- the addon see the creature meanwhile. Without an answer no line is written; nothing is guessed from other names. The
+-- classification (normal, elite, rare, rareelite, worldboss …) is known only for a creature the addon saw; if it sees one only
+-- after its line, the line is written again, with it
 local _, ns = ...
 
 local RETRY_DELAYS = { 1, 3 }
 local UNIT_LINK = "unit:Creature-0-0-0-0-%d-0000000000"
+-- The classifications above normal, whose npc line comes after each kill
+local SPECIAL = { elite = true, rare = true, rareelite = true, worldboss = true }
 
 local Creatures = {}
 ns.Creatures = Creatures
@@ -101,6 +104,19 @@ function Creatures.Describe(npcID, name, classification)
     else
         waiting[npcID] = true
         ask(npcID, 1)
+    end
+end
+
+-- A kill: the npc line as Describe writes it, for an elite, a rare or a world boss after each kill
+function Creatures.Killed(npcID, name, classification)
+    npcID = tonumber(ns.Read(npcID))
+    local creature = npcID and seen[npcID] or {}
+    classification = ns.Read(classification) or creature.classification
+    name = ns.Name(name) or creature.name
+    if described[npcID] and SPECIAL[classification] and name then
+        write(npcID, name, classification)
+    else
+        Creatures.Describe(npcID, name, classification)
     end
 end
 

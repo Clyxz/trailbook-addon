@@ -110,6 +110,14 @@ function Store.Event(kind, ...)
     add(kind, x, y, ...)
 end
 
+-- Begins a new chunk when the open one has no room for n more lines, so that lines that belong together (a kill and its npc
+-- line) share a chunk
+function Store.Room(n)
+    if db.open and #db.open + n > MAX_LINES then
+        Store.Begin()
+    end
+end
+
 -- Who the data belongs to; a new GUID under the same name (character deleted and made again) moves the old data to previous
 function Store.SetCharacter(info)
     local old = db.character

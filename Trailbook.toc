@@ -4,7 +4,7 @@
 ## Notes-deDE: Zeichnet deinen Weg und wichtige Momente für die Trailbook-Website auf.
 ## IconTexture: Interface\Icons\INV_Misc_Book_11
 ## Author: Martin
-## Version: 0.7.4
+## Version: 0.7.5
 ## SavedVariables: TrailbookSettings
 ## SavedVariablesPerCharacter: TrailbookDB
 ## LoadSavedVariablesFirst: 1

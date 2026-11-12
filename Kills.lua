@@ -63,11 +63,13 @@ local function byName(name, now)
     return nil
 end
 
--- A kill: by NPC ID with the creature's npc line where the addon knows the ID, else by the name of the experience line
+-- A kill: by NPC ID with the creature's npc line in the same chunk where the addon knows the ID, else by the name of the
+-- experience line
 local function write(npcID, name, xp, classification)
     if npcID then
+        ns.Store.Room(2)
         ns.Store.Event("kill", nil, xp, npcID)
-        ns.Creatures.Describe(npcID, name, classification)
+        ns.Creatures.Killed(npcID, name, classification)
     else
         ns.Store.Event("kill", name, xp)
     end
